@@ -1,0 +1,73 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Adverse Weather Object Detection — Project .gitignore
+# ──────────────────────────────────────────────────────────────────────────────
+
+# ── Video files ───────────────────────────────────────────────────────────────
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# ── Large datasets (81 GB+) — keep only code / scripts ───────────────────────
+new_project/Foggy_Cityscapes_dataset/
+new_project/yolo_dataset_beta0.01_restored/
+new_project/yolo_dataset_beta0.02/
+new_project/yolo_dataset_beta0.02_baseline/
+new_project/yolo_dataset_beta0.02_restored/
+new_project/clear_image_baseline_dataset/
+new_project/clear_image_eval_dataset/
+new_project/acdcbaseline/
+new_project/yolo_baseline_foggy_beta0.02/
+
+# ── Virtual environment ───────────────────────────────────────────────────────
+new_project/wunet_yolo_env/
+
+# ── Third-party frameworks (cloned, not original code) ────────────────────────
+new_project/mmdetection/
+new_project/mmcv_source/
+
+# ── Log files ─────────────────────────────────────────────────────────────────
+*.log
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ── Jupyter checkpoints ───────────────────────────────────────────────────────
+.ipynb_checkpoints/
+
+# ── OS metadata ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Model checkpoints tracked by Git LFS (see .gitattributes) ────────────────
+# (*.pth and *.pt are tracked via LFS — NOT ignored)
+
+# ── Large result JSON files ───────────────────────────────────────────────────
+new_project/dsnet_adapter_dino_results.json
+new_project/dsnet_dino_detection_results.json
+
+# ── Generated output directories with thousands of images ─────────────────────
+new_project/baseline_yolo_detections/
+new_project/dsnet_dino_detections/
+new_project/dsnet_dino_visualizations/
+new_project/wunet_yolo_detections/
+new_project/clear_comparison_visualizations/
+new_project/video_detections/
+new_project/yolo_visualizations_final/
+new_project/yolo_visualizations_high_fog/
+new_project/high_fog_results/
+new_project/baseline_yolo_clear_detections/
+
+# ── Intermediate ACDC results packages ───────────────────────────────────────
+new_project/ACDC_Results_Packages/
+
+# ── DSNET __pycache__ and large logs ─────────────────────────────────────────
+new_project/DSNET/__pycache__/
+new_project/WUNET/__pycache__/
+
+# ── Generated metrics (runtime output) ───────────────────────────────────────
+video_detection_analysis/comparison_metrics.json

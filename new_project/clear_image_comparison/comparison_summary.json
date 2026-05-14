@@ -1,0 +1,12 @@
+{
+  "baseline_yolo_foggy": {
+    "total_detections": 104,
+    "average_per_image": 10.4,
+    "description": "YOLO trained on raw foggy images (\u03b2=0.02)"
+  },
+  "wunet_yolo": {
+    "total_detections": 119,
+    "average_per_image": 11.9,
+    "description": "YOLO trained on WUNET-restored images (\u03b2=0.02)"
+  }
+}

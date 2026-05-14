@@ -1,0 +1,79 @@
+[
+  {
+    "image": "frankfurt_000000_000294_leftImg8bit.png",
+    "num_detections": 5,
+    "class_counts": {
+      "rider": 2,
+      "person": 3
+    }
+  },
+  {
+    "image": "frankfurt_000000_000576_leftImg8bit.png",
+    "num_detections": 16,
+    "class_counts": {
+      "rider": 15,
+      "person": 1
+    }
+  },
+  {
+    "image": "frankfurt_000000_001016_leftImg8bit.png",
+    "num_detections": 9,
+    "class_counts": {
+      "rider": 6,
+      "person": 3
+    }
+  },
+  {
+    "image": "frankfurt_000000_001236_leftImg8bit.png",
+    "num_detections": 18,
+    "class_counts": {
+      "rider": 11,
+      "person": 7
+    }
+  },
+  {
+    "image": "frankfurt_000000_001751_leftImg8bit.png",
+    "num_detections": 17,
+    "class_counts": {
+      "rider": 14,
+      "person": 3
+    }
+  },
+  {
+    "image": "frankfurt_000000_002196_leftImg8bit.png",
+    "num_detections": 16,
+    "class_counts": {
+      "rider": 11,
+      "person": 5
+    }
+  },
+  {
+    "image": "frankfurt_000000_002963_leftImg8bit.png",
+    "num_detections": 14,
+    "class_counts": {
+      "rider": 14
+    }
+  },
+  {
+    "image": "frankfurt_000000_003025_leftImg8bit.png",
+    "num_detections": 11,
+    "class_counts": {
+      "rider": 11
+    }
+  },
+  {
+    "image": "frankfurt_000000_003357_leftImg8bit.png",
+    "num_detections": 9,
+    "class_counts": {
+      "rider": 9
+    }
+  },
+  {
+    "image": "frankfurt_000000_003920_leftImg8bit.png",
+    "num_detections": 4,
+    "class_counts": {
+      "rider": 3,
+      "person": 1
+    }
+  }
+]

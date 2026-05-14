@@ -1,0 +1,23 @@
+{
+  "pretrained_yolo": {
+    "mAP@50": 0.19263118786581496,
+    "mAP@50-95": 0.08785391193945521,
+    "precision": 0.44639800189541345,
+    "recall": 0.15588597687530725,
+    "description": "YOLOv8n pretrained on COCO (2 classes: person, rider)"
+  },
+  "baseline_yolo_foggy": {
+    "mAP@50": 0.6507498049437387,
+    "mAP@50-95": 0.416684981224064,
+    "precision": 0.7979930639836444,
+    "recall": 0.5646738607644,
+    "description": "YOLO trained on foggy images (\u03b2=0.02)"
+  },
+  "wunet_yolo": {
+    "mAP@50": 0.5315245205539204,
+    "mAP@50-95": 0.34018706997349674,
+    "precision": 0.7770310456717289,
+    "recall": 0.4359619652269352,
+    "description": "YOLO trained on WUNET-restored images"
+  }
+}

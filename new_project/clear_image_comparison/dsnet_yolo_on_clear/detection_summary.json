@@ -1,0 +1,52 @@
+[
+  {
+    "image": "frankfurt_000000_000294_leftImg8bit.png",
+    "strong_activations": 2,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_000576_leftImg8bit.png",
+    "strong_activations": 8,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_001016_leftImg8bit.png",
+    "strong_activations": 2,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_001236_leftImg8bit.png",
+    "strong_activations": 4,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_001751_leftImg8bit.png",
+    "strong_activations": 8,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_002196_leftImg8bit.png",
+    "strong_activations": 7,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_002963_leftImg8bit.png",
+    "strong_activations": 10,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_003025_leftImg8bit.png",
+    "strong_activations": 4,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_003357_leftImg8bit.png",
+    "strong_activations": 7,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  },
+  {
+    "image": "frankfurt_000000_003920_leftImg8bit.png",
+    "strong_activations": 6,
+    "note": "DSNet+YOLO uses custom detection format - count represents strong feature activations"
+  }
+]

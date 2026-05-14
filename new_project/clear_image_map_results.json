@@ -1,0 +1,23 @@
+{
+  "pretrained_yolo": {
+    "mAP@50": 0.0,
+    "mAP@50-95": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "description": "YOLOv8n pretrained on COCO"
+  },
+  "baseline_yolo_foggy": {
+    "mAP@50": 0.0,
+    "mAP@50-95": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "description": "YOLO trained on foggy images (\u03b2=0.02)"
+  },
+  "wunet_yolo": {
+    "mAP@50": 0.0,
+    "mAP@50-95": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "description": "YOLO trained on WUNET-restored images"
+  }
+}

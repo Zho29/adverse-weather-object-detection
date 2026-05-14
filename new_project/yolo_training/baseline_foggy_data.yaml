@@ -1,0 +1,8 @@
+names:
+- person
+- rider
+nc: 2
+path: /mnt/Data/as19197/new_project/yolo_baseline_foggy_beta0.02
+test: images/test
+train: images/train
+val: images/val

@@ -1,0 +1,23 @@
+{
+  "pretrained_yolo": {
+    "mAP@50": 0.25095025204665156,
+    "mAP@50-95": 0.11144034145855355,
+    "precision": 0.4967671911187554,
+    "recall": 0.21041245578138382,
+    "description": "YOLOv8n pretrained on COCO (never seen fog)"
+  },
+  "foggy_yolo": {
+    "mAP@50": 0.5759370589433702,
+    "mAP@50-95": 0.36143498623213866,
+    "precision": 0.7912876562891695,
+    "recall": 0.493607138452798,
+    "description": "YOLO trained on foggy images (\u03b2=0.02)"
+  },
+  "wunet_yolo": {
+    "mAP@50": 0.6596380870383274,
+    "mAP@50-95": 0.4220913301982163,
+    "precision": 0.8030301207369894,
+    "recall": 0.5722662075462772,
+    "description": "YOLO trained on WUNET-restored images"
+  }
+}
