@@ -10,7 +10,7 @@ The current experiments focus on **fog**, including the high-density setting **�
 | --- | --- | --- |
 | Baseline YOLO | Foggy image → YOLOv8 | [Baseline training](experiments/yolo_training/train_baseline_yolo_foggy.py) |
 | WeatherUNet + YOLO | Foggy image → restoration → YOLOv8 | [WeatherUNet](experiments/WUNET/) · [Detector training](experiments/yolo_training/train_yolo_with_wunet.py) |
-| DSNet + YOLO | Shared features for restoration and detection | [Model](experiments/DSNET/dsnet_yolo.py) |
+| DSNet + custom grid head | Shared restoration features and a YOLO-style research head | [Model](experiments/DSNET/dsnet_yolo.py) |
 | DSNet + DINO | Joint restoration and DINO-based detection experiments | [Model](experiments/DSNET/dsnet_dino.py) |
 
 ## Getting started
@@ -51,7 +51,7 @@ python experiments/WUNET/train_wunet_foggy.py \
   --root-dir /path/to/Foggy_Cityscapes_dataset \
   --beta 0.02 \
   --epochs 200 \
-  --save-dir experiments/checkpoints/wunet_foggy
+  --save-dir outputs/wunet_foggy
 ```
 
 The WeatherUNet script selects CUDA when available and otherwise uses CPU. See the [setup guide](docs/setup.md) for detector training, checkpoint handling, and the additional DINO requirements.
@@ -88,7 +88,7 @@ Sources: [clear-image metrics](experiments/CLEAR_IMAGE_mAP_BASELINE.json) and [f
 │   ├── yolo_training/         # Detector training and saved runs
 │   ├── evaluation/            # Detection visualization
 │   ├── checkpoints/           # Git LFS weights and training histories
-│   ├── clear_image_comparison/# Saved qualitative comparisons
+│   ├── clear_image_comparison/ # Saved qualitative comparisons
 │   └── *.py / *.json          # Evaluation scripts and recorded metrics
 ├── docs/
 │   ├── setup.md               # Environment and workflow notes
@@ -101,11 +101,24 @@ Sources: [clear-image metrics](experiments/CLEAR_IMAGE_mAP_BASELINE.json) and [f
 └── requirements.txt          # Core Python dependencies
 ```
 
+## Workflow support
+
+| Workflow | Entry point | Status |
+| --- | --- | --- |
+| Restoration training | `experiments/WUNET/train_wunet_foggy.py` | CLI with checkpoint resume |
+| Baseline detector training | `experiments/yolo_training/train_baseline_yolo_foggy.py` | Validated standard YOLO datasets |
+| Restoration + detector training | `experiments/yolo_training/train_yolo_with_wunet.py` | Standard YOLO datasets; explicit restoration stage |
+| DSNet training and evaluation | `experiments/DSNET/train_dsnet_yolo.py` · `evaluate_dsnet_yolo_detection.py` | Custom detection head; use newly trained checkpoints |
+| Video inference | `video_detection_analysis/process_video_*.py` | Baseline, WeatherUNet, and DSNet |
+| DINO and older comparison scripts | Other experiment scripts | Historical workflows; environment/path review required |
+
+Use `--help` on the listed CLIs. New training outputs belong in `outputs/`; saved research artifacts remain under `experiments/`. Fresh WeatherUNet and DSNet runs require empty save directories to protect previous results.
+
 ## Research status
 
 WeatherUNet, YOLO training, and DSNet + YOLO now have dataset CLIs and regression tests. Some older top-level evaluation scripts and DINO experiments retain server-specific settings. DINO requires an additional MMDetection environment. Historical DSNet checkpoints were trained without meaningful box/class supervision; the corrected training loss requires retraining before detection quality can be assessed.
 
-Original experiment reports are preserved in [docs/archive](docs/archive/). Research papers are stored alongside the [WeatherUNet](experiments/WUNET/2407.02581v1.pdf) and [DSNet](experiments/DSNET/DSNet_Joint_Semantic_Learning_for_Object_Detection_in_Inclement_Weather_Conditions.pdf) code for reference. Independent reproduction and paper equivalence have not been established by this cleanup.
+Original experiment reports are preserved in [docs/archive](docs/archive/). Research papers are stored alongside the [WeatherUNet](experiments/WUNET/2407.02581v1.pdf) and [DSNet](experiments/DSNET/DSNet_Joint_Semantic_Learning_for_Object_Detection_in_Inclement_Weather_Conditions.pdf) code for reference. Synthetic tests cover code behavior; full benchmark reproduction and paper equivalence have not been established.
 
 ## Contributing
 

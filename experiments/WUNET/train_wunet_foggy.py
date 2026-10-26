@@ -266,6 +266,8 @@ class WUNETFoggyTrainer:
         if len(train_loader) == 0 or len(val_loader) == 0:
             raise ValueError('Training and validation loaders must contain samples')
         save_dir = Path(save_dir)
+        if start_epoch == 1 and save_dir.exists() and any(save_dir.iterdir()):
+            raise FileExistsError('A new run needs an empty save directory; choose another path or resume a checkpoint.')
         save_dir.mkdir(parents=True, exist_ok=True)
         
         print("=" * 70)
@@ -363,7 +365,7 @@ def main():
                         help='Learning rate (paper: 0.01 for RGB)')
     parser.add_argument('--img-size', type=int, default=256,
                         help='Image size for training')
-    parser.add_argument('--save-dir', type=str, default=str(Path(__file__).resolve().parents[1] / 'checkpoints' / 'wunet_foggy'),
+    parser.add_argument('--save-dir', type=str, default=str(Path(__file__).resolve().parents[2] / 'outputs' / 'wunet_foggy'),
                         help='Directory to save checkpoints')
     parser.add_argument('--save-every', type=int, default=10,
                         help='Save checkpoint every N epochs')

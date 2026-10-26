@@ -38,7 +38,7 @@ The custom head is decoded with its recorded box format and class-aware NMS. New
 
 ## Options and outputs
 
-Use `--help` on any script. Shared options include `--device cpu`, `--device cuda:0`, `--device mps`, `--conf 0.25`, `--iou 0.45`, `--classes 0 1`, `--max-frames 100`, and `--max-detections 300`.
+Use `--help` on any script. Class filters are applied before NMS and the maximum detection limit, so excluded classes cannot displace requested detections. Shared options include `--device cpu`, `--device cuda:0`, `--device mps`, `--conf 0.25`, `--iou 0.45`, `--classes 0 1`, `--max-frames 100`, and `--max-detections 300`.
 
 Restoration uses a square input size of 256 by default (`--restoration-size`, multiple of 16). Coordinates are scaled back to the source dimensions. Source FPS is preserved; use `--fps` if the video has missing or incorrect metadata. Odd frame dimensions are padded to even output dimensions for codec compatibility.
 

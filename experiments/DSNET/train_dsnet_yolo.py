@@ -38,7 +38,7 @@ def main(argv=None):
     import argparse
     parser = argparse.ArgumentParser(description="Train DSNet with a supervised custom grid detection head")
     parser.add_argument('--dataset-root', required=True, help='Paired image and coco_annotations root')
-    parser.add_argument('--save-dir', default=str(Path(__file__).resolve().parents[1] / 'checkpoints/dsnet_yolo'))
+    parser.add_argument('--save-dir', default=str(Path(__file__).resolve().parents[2] / 'outputs/dsnet_yolo'))
     parser.add_argument('--epochs', type=int, default=100)
     parser.add_argument('--batch-size', type=int, default=2)
     parser.add_argument('--num-workers', type=int, default=4)
@@ -59,6 +59,8 @@ def main(argv=None):
     EPOCHS = args.epochs
     BATCH_SIZE = args.batch_size
     SAVE_DIR = args.save_dir
+    if Path(SAVE_DIR).exists() and any(Path(SAVE_DIR).iterdir()):
+        raise FileExistsError('A new DSNet run needs an empty save directory; choose another --save-dir.')
     Path(SAVE_DIR).mkdir(exist_ok=True, parents=True)
 
     print("[1] Creating datasets...")

@@ -11,10 +11,10 @@ python experiments/WUNET/train_wunet_foggy.py --help
 python experiments/WUNET/train_wunet_foggy.py \
   --root-dir /path/to/Foggy_Cityscapes_dataset \
   --beta 0.02 --epochs 200 --batch-size 24 \
-  --save-dir experiments/checkpoints/wunet_foggy
+  --save-dir outputs/wunet_foggy
 ```
 
-Use a smaller batch size if memory is limited. The script supports `--resume`, `--num-workers`, and `--multi-gpu`. Its default dataset and checkpoint paths resolve relative to the script location, regardless of the working directory.
+Use a smaller batch size if memory is limited. The script supports `--resume`, `--num-workers`, and `--multi-gpu`. Its default dataset path resolves relative to the source directory; checkpoints default to the ignored root `outputs/wunet_foggy/` directory. Fresh runs require an empty save directory. To continue an existing WeatherUNet run, pass `--resume /path/to/checkpoint.pth` and set `--epochs` to the total desired epoch count.
 
 ## YOLO workflows
 
@@ -60,7 +60,7 @@ python experiments/DSNET/train_dsnet_yolo.py \
   --save-dir outputs/dsnet --epochs 100 --batch-size 2
 ```
 
-Use `--no-pretrained` to initialize the content branch without downloading ResNet weights. The corrected custom detection loss supervises boxes, objectness, and classes. New checkpoints record class names and box decoding metadata. Original checkpoints remain loadable, but their untrained box/class channels cannot be repaired by decoding alone; retraining is needed.
+Fresh DSNet runs require an empty save directory and default to `outputs/dsnet_yolo/`. Use `--no-pretrained` to initialize the content branch without downloading ResNet weights. The corrected custom detection loss supervises boxes, objectness, and classes. New checkpoints record class names and box decoding metadata. Original checkpoints remain loadable, but their untrained box/class channels cannot be repaired by decoding alone; retraining is needed.
 
 The DSNet [evaluation CLI](../experiments/DSNET/evaluate_dsnet_yolo_detection.py) and [visualization CLI](../experiments/DSNET/visualize_dsnet_yolo.py) accept explicit paths; use `--help` for options. Other DSNet/DINO research variants still need configuration.
 
@@ -87,3 +87,9 @@ bash -n experiments/install_mmdetection.sh
 ```
 
 The test suite uses synthetic data and exercises training state, labels, decoding, normalization, and video I/O. Full training and benchmark evaluation require real datasets, downloaded checkpoints, and the appropriate framework environment.
+
+## Choosing the right script
+
+The commands shown here are maintained workflows. Files such as `experiments/evaluate_clear_map.py`, `evaluate_on_clear_images.py`, and the top-level `test_*_on_clear.py` scripts are historical experiment records with server-specific paths. They are not the regression tests and should not be launched as a general evaluation suite.
+
+Run regression tests only from `tests/` using the command above. A zero-error syntax check does not validate class mappings, checkpoint quality, or historical benchmark numbers. In particular, DSNet's custom grid head is not the Ultralytics YOLOv8 head; its checkpoints and losses are not interchangeable with standard YOLO weights.

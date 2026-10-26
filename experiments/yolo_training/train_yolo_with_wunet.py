@@ -202,6 +202,8 @@ def train_yolo(data_yaml, epochs=100, batch_size=16, img_size=640, model_name='y
     if min(epochs, batch_size, img_size) < 1:
         raise ValueError('Epochs, batch size, and image size must be positive.')
     data_yaml = Path(data_yaml).expanduser().resolve()
+    if data_yaml.name != 'data.yaml':
+        raise ValueError('The dataset configuration must be named data.yaml.')
     load_dataset_config(data_yaml.parent)
     from ultralytics import YOLO
     if resume:

@@ -137,6 +137,20 @@ class DatasetPipelineTests(unittest.TestCase):
             baseline.prepare_baseline_dataset(foggy, source_labels, destination)
         self.assertFalse(destination.exists())
 
+    def test_baseline_output_cannot_overlap_source_datasets(self):
+        foggy, source_labels = self.foggy_data()
+        for output in (foggy / 'prepared', source_labels / 'prepared', self.root):
+            with self.assertRaisesRegex(ValueError, 'separate'):
+                baseline.prepare_baseline_dataset(foggy, source_labels, output)
+        self.assertFalse((foggy / 'prepared').exists())
+        self.assertFalse((source_labels / 'prepared').exists())
+
+    def test_training_validates_the_selected_yaml_instead_of_another_file(self):
+        other_config = self.source / 'different.yaml'
+        other_config.write_text('names: [wrong]\n')
+        with self.assertRaisesRegex(ValueError, 'named data.yaml'):
+            workflow.train_yolo(other_config)
+
     def test_training_resume_is_forwarded_and_cpu_default_is_used(self):
         captured = {}
         checkpoint = self.root / 'resume.pt'

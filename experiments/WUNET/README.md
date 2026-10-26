@@ -19,7 +19,7 @@ Install the root [requirements](../../requirements.txt), then run from the repos
 python experiments/WUNET/train_wunet_foggy.py \
   --root-dir /path/to/Foggy_Cityscapes_dataset \
   --beta 0.02 --epochs 200 \
-  --save-dir experiments/checkpoints/wunet_foggy
+  --save-dir outputs/wunet_foggy
 ```
 
 Supported fog densities are `0.005`, `0.01`, and `0.02`. See [setup](../../docs/setup.md) for the dataset layout and checkpoint handling.

@@ -1,23 +1,9 @@
-"""
-Weather UNet (WUNet) Implementation
-Based on arXiv 2407.02581: "Robust ADAS: Enhancing Robustness of ML-based ADAS for Adverse Weather"
+"""WeatherUNet restoration model with a U-Net encoder, decoder, and skip connections.
 
-This is the EXACT architecture from the paper, which uses the standard UNet encoder-decoder
-structure from Ronneberger et al. (2015) without architectural modifications.
-
-The paper's key contributions are:
-1. Applying UNet to weather denoising (fog, rain, snow removal)
-2. Training on augmented KITTI dataset with synthetic weather
-3. Comparing RGB vs HSV color spaces (RGB performs better)
-4. Demonstrating 4% -> 70% mAP improvement in extreme fog for YOLOv8n
-
-Training Configuration from Paper:
-- Optimizer: Adam
-- Learning Rate: 0.01 (RGB), 0.001 (HSV)
-- Epochs: 200
-- Batch Size: 24 (whole images), 160 (crops)
-- Loss: MSE (Mean Squared Error)
-- Dataset: Augmented KITTI (26,796 train, 3,128 test images)
+This research implementation is based on the paper included in 2407.02581v1.pdf.
+Paper-equivalent behavior and paper benchmark results have not been established
+by this repository. Foggy Cityscapes training normalizes RGB images to [-1, 1]
+and uses a three-channel tanh output.
 """
 
 import torch

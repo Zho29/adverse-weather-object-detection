@@ -24,7 +24,7 @@ def _reshape_head(prediction, num_classes):
 
 def decode_detections(predictions, num_classes, image_size=(512, 512),
                       confidence=0.25, iou_threshold=0.45,
-                      max_detections=300, box_format="legacy"):
+                      max_detections=300, box_format="legacy", classes=None):
     """Return one Nx6 (xyxy, score, class) tensor per image after class NMS.
 
     Coordinates use ``image_size=(height, width)``. Strides are computed from
@@ -34,6 +34,10 @@ def decode_detections(predictions, num_classes, image_size=(512, 512),
         raise ValueError("Supply heads and confidence/IoU thresholds in [0, 1]")
     if box_format not in {"legacy", "sigmoid"}:
         raise ValueError("box_format must be 'legacy' or 'sigmoid'")
+    if classes is not None:
+        classes = list(classes)
+        if any(not isinstance(label, int) or not 0 <= label < num_classes for label in classes):
+            raise ValueError("classes must contain zero-based detector class IDs")
     image_h, image_w = image_size
     if image_h <= 0 or image_w <= 0 or max_detections < 1:
         raise ValueError("Image dimensions and max_detections must be positive")
@@ -62,6 +66,9 @@ def decode_detections(predictions, num_classes, image_size=(512, 512),
             valid = ((image_scores >= confidence) & torch.isfinite(image_boxes).all(dim=1)
                      & torch.isfinite(image_scores) & (image_boxes[:, 2] > image_boxes[:, 0])
                      & (image_boxes[:, 3] > image_boxes[:, 1]))
+            if classes is not None:
+                allowed = image_classes.new_tensor(classes)
+                valid &= torch.isin(image_classes, allowed)
             candidates[index].append(torch.cat((image_boxes[valid], image_scores[valid, None],
                                                  image_classes[valid, None].to(pred.dtype)), dim=1))
     results = []

@@ -23,7 +23,8 @@ def prepare_baseline_dataset(foggy_root, labels_dataset, output_root, beta=0.02,
     labels_dataset = Path(labels_dataset).expanduser().resolve()
     output_root = Path(output_root).expanduser().resolve()
     foggy_root = Path(foggy_root).expanduser().resolve()
-    if output_root == labels_dataset or output_root == foggy_root or output_root in labels_dataset.parents or output_root in foggy_root.parents:
+    if any(output_root == source or output_root in source.parents or source in output_root.parents
+           for source in (labels_dataset, foggy_root)):
         raise ValueError('Baseline output must be separate from source datasets.')
     if output_root.exists() and any(output_root.iterdir()):
         raise FileExistsError(f'Baseline output directory must be empty: {output_root}')

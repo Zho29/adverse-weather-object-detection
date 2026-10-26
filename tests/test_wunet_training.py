@@ -102,6 +102,15 @@ class WUNETTrainingTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'No foggy/clear image pairs'):
                 FoggyCityscapesDataset(directory)
 
+    def test_new_training_run_does_not_overwrite_existing_artifacts(self):
+        trainer = self.make_trainer()
+        with tempfile.TemporaryDirectory() as directory:
+            marker = Path(directory) / 'training_history_beta0.01.json'
+            marker.write_text('existing run')
+            with self.assertRaisesRegex(FileExistsError, 'empty save directory'):
+                trainer.train(self.loader, self.loader, num_epochs=1, save_dir=directory)
+            self.assertEqual(marker.read_text(), 'existing run')
+
     def test_random_pair_transforms_stay_aligned(self):
         class RandomOffset:
             def __call__(self, image):

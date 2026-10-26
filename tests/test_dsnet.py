@@ -17,6 +17,30 @@ from coco_dataset import CityscapesCocoDataset
 
 
 class DetectionTests(unittest.TestCase):
+    def test_class_filter_runs_before_detection_limit(self):
+        head = torch.full((1, 21, 1, 2), -20.0)
+        for column, label, objectness in [(0, 0, 10), (1, 1, 5)]:
+            head[0, :2, 0, column] = 0
+            head[0, 2:4, 0, column] = 0.2
+            head[0, 4, 0, column] = objectness
+            head[0, 5 + label, 0, column] = 10
+        decoded = decode_detections([head], 2, (40, 80), max_detections=1,
+                                    confidence=0.5, classes=[1])[0]
+        self.assertEqual(decoded.shape, (1, 6))
+        self.assertEqual(decoded[0, 5].item(), 1)
+        self.assertEqual(len(decode_detections([head], 2, classes=[])[0]), 0)
+        with self.assertRaisesRegex(ValueError, 'zero-based'):
+            decode_detections([head], 2, classes=[2])
+
+    def test_new_training_run_preserves_existing_output(self):
+        module = importlib.import_module('train_dsnet_yolo')
+        with tempfile.TemporaryDirectory() as directory:
+            marker = Path(directory) / 'history.json'
+            marker.write_text('existing run')
+            with self.assertRaisesRegex(FileExistsError, 'empty save directory'):
+                module.main(['--dataset-root', directory, '--save-dir', directory])
+            self.assertEqual(marker.read_text(), 'existing run')
+
     def test_three_slots_stride_class_ids_and_class_aware_nms(self):
         head = torch.full((1, 21, 2, 4), -20.0)
         # Two identical boxes of distinct classes in slots 0 and 1.

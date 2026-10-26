@@ -62,6 +62,13 @@ class VideoTests(unittest.TestCase):
         self.assertEqual(summary['frames_processed'], 1)
         self.assertEqual(summary['detections'], 0)
 
+    def test_output_paths_cannot_be_parent_directories_of_other_outputs(self):
+        args = self.args()
+        args.summary = str(Path(args.output) / 'summary.json')
+        with self.assertRaisesRegex(ValueError, 'parent directories'):
+            run_video(args, FakePredictor())
+        self.assertFalse(Path(args.output).exists())
+
     def test_preserves_existing_outputs_and_input(self):
         target = self.root / 'output.avi'
         target.write_bytes(b'keep existing output')

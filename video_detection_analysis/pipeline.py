@@ -125,11 +125,9 @@ class Predictor:
                 restored, heads = self.detector(image)
                 rows = self.decode(heads, self.detector.num_classes, image.shape[-2:],
                                    args.conf, args.iou, args.max_detections,
-                                   self.box_format)[0].cpu().numpy()
+                                   self.box_format, classes=args.classes)[0].cpu().numpy()
             rows[:, [0, 2]] *= frame.shape[1] / image.shape[-1]
             rows[:, [1, 3]] *= frame.shape[0] / image.shape[-2]
-            if args.classes is not None:
-                rows = rows[np.isin(rows[:, 5], args.classes)]
             return restored_frame(restored, frame.shape), rows
         source = frame
         if self.restorer is not None:
@@ -187,6 +185,9 @@ def run_video(args, predictor=None):
             protected.add(Path(value).expanduser().resolve())
     if len(set(outputs)) != 3 or any(path in protected for path in outputs):
         raise ValueError('Input, checkpoints, video, summary, and detection paths must be distinct.')
+    if any(left in right.parents or right in left.parents
+           for index, left in enumerate(outputs) for right in outputs[index + 1:]):
+        raise ValueError('Output paths cannot contain one another as parent directories.')
     if output_path.suffix.lower() not in {'.mp4', '.avi'}:
         raise ValueError('Output video must use .mp4 or .avi.')
     if not input_path.is_file():
