@@ -9,22 +9,22 @@
 *.mkv
 
 # ── Large datasets (81 GB+) — keep only code / scripts ───────────────────────
-new_project/Foggy_Cityscapes_dataset/
-new_project/yolo_dataset_beta0.01_restored/
-new_project/yolo_dataset_beta0.02/
-new_project/yolo_dataset_beta0.02_baseline/
-new_project/yolo_dataset_beta0.02_restored/
-new_project/clear_image_baseline_dataset/
-new_project/clear_image_eval_dataset/
-new_project/acdcbaseline/
-new_project/yolo_baseline_foggy_beta0.02/
+experiments/Foggy_Cityscapes_dataset/
+experiments/yolo_dataset_beta0.01_restored/
+experiments/yolo_dataset_beta0.02/
+experiments/yolo_dataset_beta0.02_baseline/
+experiments/yolo_dataset_beta0.02_restored/
+experiments/clear_image_baseline_dataset/
+experiments/clear_image_eval_dataset/
+experiments/acdcbaseline/
+experiments/yolo_baseline_foggy_beta0.02/
 
 # ── Virtual environment ───────────────────────────────────────────────────────
-new_project/wunet_yolo_env/
+experiments/wunet_yolo_env/
 
 # ── Third-party frameworks (cloned, not original code) ────────────────────────
-new_project/mmdetection/
-new_project/mmcv_source/
+experiments/mmdetection/
+experiments/mmcv_source/
 
 # ── Log files ─────────────────────────────────────────────────────────────────
 *.log
@@ -47,27 +47,50 @@ Thumbs.db
 # (*.pth and *.pt are tracked via LFS — NOT ignored)
 
 # ── Large result JSON files ───────────────────────────────────────────────────
-new_project/dsnet_adapter_dino_results.json
-new_project/dsnet_dino_detection_results.json
+experiments/dsnet_adapter_dino_results.json
+experiments/dsnet_dino_detection_results.json
 
 # ── Generated output directories with thousands of images ─────────────────────
-new_project/baseline_yolo_detections/
-new_project/dsnet_dino_detections/
-new_project/dsnet_dino_visualizations/
-new_project/wunet_yolo_detections/
-new_project/clear_comparison_visualizations/
-new_project/video_detections/
-new_project/yolo_visualizations_final/
-new_project/yolo_visualizations_high_fog/
-new_project/high_fog_results/
-new_project/baseline_yolo_clear_detections/
+experiments/baseline_yolo_detections/
+experiments/dsnet_dino_detections/
+experiments/dsnet_dino_visualizations/
+experiments/wunet_yolo_detections/
+experiments/clear_comparison_visualizations/
+experiments/video_detections/
+experiments/yolo_visualizations_final/
+experiments/yolo_visualizations_high_fog/
+experiments/high_fog_results/
+experiments/baseline_yolo_clear_detections/
 
 # ── Intermediate ACDC results packages ───────────────────────────────────────
-new_project/ACDC_Results_Packages/
+experiments/ACDC_Results_Packages/
 
 # ── DSNET __pycache__ and large logs ─────────────────────────────────────────
-new_project/DSNET/__pycache__/
-new_project/WUNET/__pycache__/
+experiments/DSNET/__pycache__/
+experiments/WUNET/__pycache__/
 
 # ── Generated metrics (runtime output) ───────────────────────────────────────
 video_detection_analysis/comparison_metrics.json
+
+# Local environments and package tooling
+.venv/
+venv/
+env/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+
+# Scratch experiments (historical tracked artifacts remain available)
+/outputs/

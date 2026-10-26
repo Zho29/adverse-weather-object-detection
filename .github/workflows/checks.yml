@@ -1,0 +1,52 @@
+name: Repository checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    name: Python and shell syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile Python sources
+        run: python -m compileall -q experiments video_detection_analysis tests
+      - name: Check shell scripts
+        run: |
+          bash -n experiments/create_yolo_dataset_beta0.02.sh
+          bash -n experiments/fix_labels_beta0.02.sh
+          bash -n experiments/install_mmdetection.sh
+
+  regression:
+    name: Synthetic regression tests
+    runs-on: ubuntu-latest
+    env:
+      MPLBACKEND: Agg
+      MPLCONFIGDIR: /tmp/matplotlib
+      YOLO_CONFIG_DIR: /tmp/ultralytics-config
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: pip
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install -r requirements.txt
+      - name: Run synthetic regression tests
+        run: python -m unittest discover -s tests -v

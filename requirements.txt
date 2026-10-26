@@ -1,0 +1,18 @@
+# Core restoration, YOLO training, and evaluation dependencies.
+# Install a hardware-appropriate PyTorch build first when using CUDA.
+# This is a dependency manifest, not a lockfile for historical experiments.
+torch
+torchvision
+ultralytics
+numpy
+Pillow
+opencv-python
+matplotlib
+pandas
+PyYAML
+scikit-image
+tqdm
+pycocotools
+
+# DSNet + DINO additionally requires a compatible MMDetection/MMCV/MMEngine
+# environment. See docs/setup.md before installing those packages.
